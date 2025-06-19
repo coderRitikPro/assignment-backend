@@ -1,6 +1,6 @@
 const express = require('express');
 const http = require('http');
-const socketIO = require('socket.io');
+// const socketIO = require('socket.io');
 const dotenv = require('dotenv');
 const cors = require('cors');
 const bodyParser = require('body-parser');
@@ -20,11 +20,11 @@ app.use('/disasters', require('./routes/resources'));
 app.use('/disasters', require('./routes/mockSocialMedia'));
 app.use('/disasters', require('./routes/officialUpdates'));
 app.use('/disasters', require('./routes/imageVerify'));
-app.set('io', io);
+// app.set('io', io);
 
 
 
-require('./websockets')(io);
+// require('./websockets')(io);
 
 
 const PORT = process.env.PORT || 5000;
