@@ -7,17 +7,22 @@ const authenticate = require('./middleware/auth');
 dotenv.config();
 
 const app = express();
-app.use(cors(
-  {
-    origin:'https://assignment-frontend-gilt.vercel.app/',
-    credentials:true
-  }
-));
+
+app.use(cors({
+  origin: 'https://assignment-frontend-gilt.vercel.app',
+  credentials: true,
+}));
 
 app.options('*', cors());
+app.use((req, res, next) => {
+  if (req.method === 'OPTIONS') {
+    return res.sendStatus(200);
+  }
+  next();
+});
+
 app.use(bodyParser.json());
 app.use(authenticate);
-
 
 app.use('/disasters', require('./routes/disasters'));
 app.use('/geocode', require('./routes/geocode'));
@@ -25,7 +30,6 @@ app.use('/disasters', require('./routes/resources'));
 app.use('/disasters', require('./routes/mockSocialMedia'));
 app.use('/disasters', require('./routes/officialUpdates'));
 app.use('/disasters', require('./routes/imageVerify'));
-
-app.use('/',require('./routes/index.js'))
+app.use('/', require('./routes/index'));
 
 module.exports = app;
