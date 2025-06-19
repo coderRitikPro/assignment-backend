@@ -7,7 +7,12 @@ const authenticate = require('./middleware/auth');
 dotenv.config();
 
 const app = express();
-app.use(cors());
+app.use(cors(
+  {
+    origin:'https://assignment-frontend-gilt.vercel.app/',
+    credentials:true
+  }
+));
 app.use(bodyParser.json());
 app.use(authenticate);
 
