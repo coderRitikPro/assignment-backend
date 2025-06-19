@@ -1,11 +1,23 @@
 const express = require('express');
 const router = express.Router();
 const axios = require('axios');
+const supabase = require('../supabaseClient');
 
 router.get('/:id/social-media',async(req,res)=>{
   try{
     const { id } = req.params;
-    const query = req.query.query;
+    const {data,error} = await supabase
+      .from('disasters')
+      .select('tags')
+      .eq('id', id)
+      .single();
+
+    if (error) {
+      console.error('Error fetching disaster tags:', error);
+      return res.status(500).json({ error: error.message });
+    }
+
+  const query = data.tags.join(' OR ');
   const response = await axios.get(
     'https://api.twitter.com/2/tweets/search/recent',
   {
@@ -14,8 +26,7 @@ router.get('/:id/social-media',async(req,res)=>{
     },
     params: {
       query: query,
-      max_results: 10, 
-      'tweet.fields': 'created_at,author_id,text' // optional fields to return
+      max_results: 10,
     }
   });
   console.log(response.data);

@@ -5,7 +5,7 @@ const supabase = require('../supabaseClient');
 
 router.post('/', async (req, res) => {
   
-  const { title, location_name, description, tags, owner_id,latitude,longitude,} = req.body;
+  const { title, location_name, description, tags, owner_id,latitude,longitude} = req.body;
   try{
       const { data, error } = await supabase
         .from('disasters')
@@ -31,15 +31,15 @@ router.post('/', async (req, res) => {
 });
 
 router.get('/',async(req,res)=>{
-  const {tag} = req.query;
+  let {tag} = req.query;
+  if(tag) tag = tag.split(',');
+  console.log(tag,'this is tag');
   try{
-    const time = new Date();
+   
     const { data, error } = await supabase
       .from('disasters')
       .select('*')
-      .gt('created_at', new Date(time.setDate(time.getDate()-1)).toISOString())
-      .eq('status', 0)
-      .ilike('tags', `%${tag}%`);
+      .contains('tags', tag??[]);
 
       if(error) return res.status(500).json({error:error.message});
       res.status(200).json(data);

@@ -8,7 +8,18 @@ const GEN_AI_KEY = process.env.GEN_AI_KEY;
 router.post('/:id/verify-image', async (req, res) => {
   try {
     const { photoUrl } = req.body;
-    const {description} = req.body;
+    const {id} = req.params;
+    const {data:disasterData,error:disasterError} = await supabase
+      .from('disasters')
+      .select('title,description')
+      .eq('id', id)
+      .single();
+
+      if(disasterError){
+        return res.status(500).json({error:"disaster not found"});
+      }
+
+      const description = disasterData.description + " "+ disasterData.title;
     const cacheKey = `imageAnalysis:${photoUrl}`;
 
     const { data: cachedData, error: cacheError } = await supabase
