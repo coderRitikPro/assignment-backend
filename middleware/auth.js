@@ -14,7 +14,7 @@ const authenticate = (req,res,next)=>{
     if(users[username] && password === users[username].password){
         next();
     }else{
-        res.status(401).json({error:"Unauthorized"});
+        return res.status(401).json({error:"Unauthorized"});
     }
 }
 
