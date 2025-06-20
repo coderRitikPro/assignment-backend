@@ -14,13 +14,6 @@ app.use(cors({
 }));
 
 
-app.use((req, res, next) => {
-  if (req.method === 'OPTIONS') {
-    return res.sendStatus(200);
-  }
-  next();
-});
-
 app.use(bodyParser.json());
 app.use(authenticate);
 
