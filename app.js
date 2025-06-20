@@ -23,6 +23,7 @@ app.use('/disasters', require('./routes/resources'));
 app.use('/disasters', require('./routes/mockSocialMedia'));
 app.use('/disasters', require('./routes/officialUpdates'));
 app.use('/disasters', require('./routes/imageVerify'));
+app.use('/',require('./routes/index'));
 
 
 module.exports = app;
