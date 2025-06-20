@@ -10,6 +10,11 @@ const users = {
     }
 }
 const authenticate = (req,res,next)=>{
+        if (req.method === 'OPTIONS') {
+             next();
+        }
+    
+
     const {username,password} = req.query;
     if(users[username] && password === users[username].password){
         next();
