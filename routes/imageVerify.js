@@ -59,11 +59,11 @@ router.post('/:id/verify-image', async (req, res) => {
       return res.status(500).json({ error: insertError.message });
     }
 
-    res.json(output);
+    return res.json(output);
 
   } catch (error) {
     console.error(error);
-    res.status(500).json({ error: 'Image analysis failed' });
+    return res.status(500).json({ error: 'Image analysis failed' });
   }
 });
 

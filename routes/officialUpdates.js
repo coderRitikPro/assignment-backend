@@ -10,10 +10,10 @@ router.get('/:id/official-updates', async (req, res) => {
       { id: 2, disasterId: id, content: 'Update 2 for disaster ' + id },
     ];
 
-    res.json(updates);
+   return res.json(updates);
   } catch (error) {
     console.error(error);
-    res.status(500).json({ error: 'Failed to fetch official updates' });
+   return  res.status(500).json({ error: 'Failed to fetch official updates' });
   }
 });
 

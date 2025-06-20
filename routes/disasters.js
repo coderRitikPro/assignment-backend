@@ -79,7 +79,7 @@ router.delete('/:id',async(req,res)=>{
       .eq('id', id);
 
     if (error) return res.status(500).json({ error: error.message });
-    res.status(200).json("successfully deleted disaster");
+    return res.status(200).json("successfully deleted disaster");
   } catch(error){
     return res.status(500).json({error:error.message});
   }

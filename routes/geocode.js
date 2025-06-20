@@ -58,10 +58,10 @@ router.post('/', async (req, res) => {
       return res.status(500).json({ error: insertError.message });
     }
     console.log("this is output -> ",output);
-    res.json(output);
+    return res.json(output);
   } catch (err) {
     console.error(err);
-    res.status(500).json({ error: 'Geocoding failed' });
+    return res.status(500).json({ error: 'Geocoding failed' });
   }
 });
 
